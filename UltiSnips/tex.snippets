@@ -1,0 +1,244 @@
+global !p
+def math():
+	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+endglobal
+
+snippet beg "begin{} / end{}" bA
+\\begin{$1}
+	$0
+\\end{$1}
+endsnippet
+
+snippet preuve "preuve" bA
+\tcblower
+\begin{preuve}
+	$0
+\end{preuve}
+endsnippet
+
+context "math()"
+snippet \{ "\{ \}" iA
+\left\\{ $1 \right\\}$0
+endsnippet
+
+context "math()"
+snippet sqrt "sqrt" iA
+\sqrt{${1:${VISUAL}}}$0
+endsnippet
+
+context "math()"
+snippet lim "limit" iA
+\lim\\limits_{$1} $0
+endsnippet
+
+priority 100
+context "math()"
+snippet ... "dots" iA
+\dots
+endsnippet
+
+context "math()"
+snippet -> "rightarrow" iA
+\rightarrow 
+endsnippet
+
+
+context "math()"
+snippet @a "\alpha" iA
+\alpha 
+endsnippet
+
+context "math()"
+snippet @b "\beta" iA
+\beta 
+endsnippet
+
+context "math()"
+snippet @g "\alpha" iA
+\gamma 
+endsnippet
+
+context "math()"
+snippet @G "\alpha" iA
+\Gamma 
+endsnippet
+
+context "math()"
+snippet @d "\alpha" iA
+\delta 
+endsnippet
+
+context "math()"
+snippet @D "\alpha" iA
+\Delta 
+endsnippet
+
+context "math()"
+snippet @e "\alpha" iA
+\varepsilon 
+endsnippet
+
+context "math()"
+snippet @l "\alpha" iA
+\lambda 
+endsnippet
+
+context "math()"
+snippet @s "\alpha" iA
+\sigma 
+endsnippet
+
+context "math()"
+snippet pi "\pi" iA
+\pi 
+endsnippet
+
+context "math()"
+snippet rho "\alpha" iA
+\rho 
+endsnippet
+
+context "math()"
+snippet theta "\alpha" iA
+\theta 
+endsnippet
+
+context "math()"
+snippet tau "\alpha" iA
+\tau 
+endsnippet
+
+context "math()"
+snippet phi "\alpha" iA
+\phi 
+endsnippet
+
+context "math()"
+snippet Phi "\alpha" iA
+\Phi 
+endsnippet
+
+
+context "math()"
+snippet sbeq "subseteq" iA
+\subseteq 
+endsnippet
+
+context "math()"
+snippet speq "supseteq" iA
+\supseteq 
+endsnippet
+
+
+context "math()"
+snippet inn "\in" iA
+\in 
+endsnippet
+
+context "math()"
+snippet inv "inverse" iA
+^{-1}
+endsnippet
+
+context "math()"
+snippet emps "empty set" iA
+\varnothing 
+endsnippet
+
+snippet enum "Enumerate" bA
+\begin{enumerate}
+	\item $0
+\end{enumerate}
+endsnippet
+
+snippet item "Itemize" bA
+\begin{itemize}
+	\item $0
+\end{itemize}
+endsnippet
+
+snippet => "implies" Ai
+\implies
+endsnippet
+
+snippet mk "Math" wA
+$${1}$`!p
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+	snip.rv = ' '
+else:
+	snip.rv = ''
+`$2
+endsnippet
+
+snippet ml "Math" wA
+$$${1}$$`!p
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+	snip.rv = ' '
+else:
+	snip.rv = ''
+`$2
+endsnippet
+
+context "math()"
+snippet // "Fraction" iA
+\\frac{$1}{$2}$0
+endsnippet
+
+context "math()"
+snippet int "Integral" iA
+\int_{$1}^{$2}$0
+endsnippet
+
+context "math()"
+snippet '([A-Za-z])(\d)' "auto subscript" wrA
+`!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
+endsnippet
+
+snippet sympy "sympyblock " w
+sympy $1 sympy$0
+endsnippet
+
+priority 10000
+snippet 'sympy(.*)sympy' "sympy" wr
+`!p
+from sympy import *
+x, y, z, t = symbols('x y z t')
+k, m, n = symbols('k m n', integer=True)
+f, g, h = symbols('f g h', cls=Function)
+init_printing()
+snip.rv = eval('latex(' + match.group(1).replace('\\', '').replace('^', '**').replace('{', '(').replace('}', ')') + ')')
+`
+endsnippet
+
+context "math()"
+snippet () "left( right)" iA
+\left( ${1:${VISUAL}} \right) $0
+endsnippet
+
+context "math()"
+snippet sum "sum" w
+\sum_{n=${1:1}}^{${2:\infty}} ${3:a_n z^n}
+endsnippet
+
+context "math()"
+snippet __ "subscript" iA
+_{$1}$0
+endsnippet
+
+snippet <= "leq" iA
+\leq 
+endsnippet
+
+snippet >= "geq" iA
+\geq 
+endsnippet
+
+context "math()"
+snippet EE "geq" iA
+\exists 
+endsnippet
+
+context "math()"
+snippet AA "forall" iA
+\forall 
+endsnippet

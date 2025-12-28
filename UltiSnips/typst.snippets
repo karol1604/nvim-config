@@ -1,0 +1,87 @@
+global !p
+def math():
+	r = vim.eval("v:lua.typst_in_math_zone()")
+	res = r == 'True'
+	vim.command(f'echo "math zone: {res}"')
+	return r == 'True'
+endglobal
+
+
+snippet mk "Math" wA
+$${1}$`!p
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+	snip.rv = ' '
+else:
+	snip.rv = ''
+`$2
+endsnippet
+
+snippet ml "Math" wA
+$ ${1} $`!p
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+	snip.rv = ' '
+else:
+	snip.rv = ''
+`$2
+endsnippet
+
+context "math()"
+snippet '([A-Za-z])(\d)' "auto subscript" wrA
+`!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
+endsnippet
+
+context "math()"
+snippet tw "to the ... power" iA
+^($1)$0
+endsnippet
+
+context "math()"
+snippet otimes "otimes" iA
+times.circle
+endsnippet
+
+context "math()"
+snippet star "star" iA
+^*
+endsnippet
+
+context "math()"
+snippet EE "exists" iA
+exists 
+endsnippet
+
+context "math()"
+snippet AA "forall" iA
+forall 
+endsnippet
+
+context "math()"
+snippet sbeq "subseteq" iA
+subset.eq 
+endsnippet
+
+context "math()"
+snippet speq "supseteq" iA
+supset.eq 
+endsnippet
+
+
+snippet ssi "ssi" w
+si et seulement si 
+endsnippet
+
+snippet ev "espace vec" w
+espace vectoriel 
+endsnippet
+
+snippet evs "espace vecs" w
+espaces vectoriels 
+endsnippet
+
+snippet Ev "espace vec" w
+Espace vectoriel 
+endsnippet
+
+snippet Evs "espace vecs" w
+Espaces vectoriels 
+endsnippet
